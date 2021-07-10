@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration status="WARN">
+    <Appenders>
+        <File name="file" fileName="logs/app.log">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %highlight{%-5level}{FATAL=white BG_Red, ERROR=white BG_Red, WARN=blue, INFO=black, DEBUG=green, TRACE=blue} %logger{20} - %msg%n"></PatternLayout>
+        </File>
+        <RollingFile name="RollingFile" fileName="logs/app.log"
+                     filePattern="logs/$${date:yyyy-MM}/log-%d{MMddyyyy}.log.gz">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %highlight{%-5level}{FATAL=white BG_Red, ERROR=white BG_Red, WARN=blue, INFO=black, DEBUG=green, TRACE=blue} %logger{20} - %msg%n"></PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10 MB" />
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %highlight{%-5level}{FATAL=white BG_Red, ERROR=white BG_Red, WARN=blue, INFO=black, DEBUG=green, TRACE=blue} %logger{20} - %msg%n"></PatternLayout>
+        </Console>
+
+    </Appenders>
+    <Loggers>
+        <Logger name="io.pragra.learning.tests.DummyTest" level="trace">
+            <AppenderRef ref="RollingFile"></AppenderRef>
+        </Logger>
+        <Root level="fatal">
+            <AppenderRef ref="console"></AppenderRef>
+        </Root>
+    </Loggers>
+</Configuration>
